@@ -22,11 +22,11 @@ is
      with Global => null,
           Contract_Cases =>
             (Swap => (P = Q'Old and Q = P'Old and
-                     ((P'Old in Normal_GF) = (Q in Normal_GF)) and
-                     ((Q'Old in Normal_GF) = (P in Normal_GF))),
+                     (Normal_GF_Predicate (P'Old) = Normal_GF_Predicate(Q)) and
+                     (Normal_GF_Predicate(Q'Old) = Normal_GF_Predicate(P))),
              not Swap => (P = P'Old and Q = Q'Old) and
-                         ((P'Old in Normal_GF) = (P in Normal_GF)) and
-                         ((Q'Old in Normal_GF) = (Q in Normal_GF)));
+                         (Normal_GF_Predicate(P'Old) = Normal_GF_Predicate(P)) and
+                         (Normal_GF_Predicate(Q'Old) = Normal_GF_Predicate(Q)));
 
    --  Reduces N modulo (2**255 - 19) then packs the
    --  value into 32 bytes little-endian.

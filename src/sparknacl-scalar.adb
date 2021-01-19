@@ -33,10 +33,10 @@ is
          Shift := Natural (I and 7);
          Swap  := Boolean'Val (Shift_Right (CB, Shift) mod 2);
 
-         pragma Loop_Invariant (A2 in Normal_GF);
-         pragma Loop_Invariant (B  in Normal_GF);
-         pragma Loop_Invariant (C  in Normal_GF);
-         pragma Loop_Invariant (D  in Normal_GF);
+         pragma Loop_Invariant (Normal_GF_Predicate(A2));
+         pragma Loop_Invariant (Normal_GF_Predicate(B ));
+         pragma Loop_Invariant (Normal_GF_Predicate(C ));
+         pragma Loop_Invariant (Normal_GF_Predicate(D ));
 
          Utils.CSwap (A2, B, Swap);
          Utils.CSwap (C, D, Swap);

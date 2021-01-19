@@ -196,7 +196,7 @@ is
    begin
       R := X;
 
-      pragma Assert (R in Difference_GF);
+      pragma Assert (Difference_GF_Predicate (R));
 
       for I in Index_16 range 0 .. 14 loop
          Carry := ASR_16 (R (I));
@@ -220,7 +220,7 @@ is
       R (0) := R (0) + R2256 * Carry;
       R (15) := R (15) mod LM;
 
-      pragma Assert (R in Nearlynormal_GF);
+      pragma Assert (Nearlynormal_GF_Predicate (R));
 
       return Nearlynormal_GF (R);
    end Difference_To_Nearlynormal;

@@ -235,7 +235,7 @@ private
 
    -------------------------------------------------------------------------
    subtype GF_Normal_Limb is I64 range 0 .. LMM1;
-
+   function Normal_GF_Predicate (N : GF) return Boolean is (for all I in Index_16 => N (I) in GF_Normal_Limb);
    subtype Normal_GF is GF
      with Dynamic_Predicate =>
        (for all I in Index_16 => Normal_GF (I) in GF_Normal_Limb);
@@ -272,6 +272,7 @@ private
         ((Difference_GF (0) in (1 - R2256) .. ((2 * LMM1) - R2256 + 1)) and
            (for all K in Index_16 range 1 .. 15 =>
               Difference_GF (K) in 0 .. 2 * LMM1));
+   function Difference_GF_Predicate (D : GF) return Boolean is ((D (0) in (1 - R2256) .. ((2 * LMM1) - R2256 + 1)) and (for all K in Index_16 range 1 .. 15 => D (K) in 0 .. 2 * LMM1));
 
    -------------------------------------------------------------------------
    --  Subtypes supporting "*" operation on GF
@@ -290,7 +291,7 @@ private
          Product_GF (I) >= 0 and
          Product_GF (I) <=
            (MGFLC - 37 * GF_Any_Limb (I)) * MGFLP);
-
+   function Product_GF_Predicate (P : GF) return Boolean is (for all I in Index_16 => P (I) >= 0 and P (I) <= (MGFLC - 37 * GF_Any_Limb (I)) * MGFLP);
    ----------------------------------------------------------------------
    --  A "Seminormal GF" is the result of applying a single
    --  normalization step to a Product_GF
@@ -329,7 +330,7 @@ private
         ((Nearlynormal_GF (0) in -R2256 .. LMM1 + R2256) and
            (for all K in Index_16 range 1 .. 15 =>
               (Nearlynormal_GF (K) in GF_Normal_Limb)));
-
+   function Nearlynormal_GF_Predicate (N : GF) return Boolean is ((N (0) in -R2256 .. LMM1 + R2256) and (for all K in Index_16 range 1 .. 15 => (N (K) in GF_Normal_Limb)));
    ------------------------------------------------------------------------
 
    --=================================================
@@ -408,7 +409,7 @@ private
    procedure Sanitize_GF (R : out GF)
      with Global => null,
           No_Inline,
-          Post => R in Normal_GF;
+          Post => Normal_GF_Predicate (R);
 
    procedure Sanitize_GF_PA (R : out GF_PA)
      with Global => null,

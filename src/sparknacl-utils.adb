@@ -89,7 +89,7 @@ is
         with Global => null,
              Pre    => T (15) >= -16#8000#,
              Post   => (Result (15) >= T (15) - 16#8000#) and then
-                       (Underflow /= (Result in Normal_GF));
+                       (Underflow /= (Normal_GF_Predicate (Result)));
 
       function To_Bytes_32 (X : in Normal_GF) return Bytes_32
         with Global => null;

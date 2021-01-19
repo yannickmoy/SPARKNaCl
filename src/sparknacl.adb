@@ -50,7 +50,7 @@ is
       --  R2256 * -1 to R (0)
       R (0) := R (0) - R2256;
 
-      pragma Assert (R in Difference_GF);
+      pragma Assert (Difference_GF_Predicate (R));
 
       --  In SPARKNaCl, we _always_ normalize after "-" to simplify proof.
       --  This sacrifices some performance for proof automation.
@@ -170,7 +170,7 @@ is
               TF (15) = T (15)
             and then
               --  Force the subtype predicate check here
-              TF in Product_GF
+              Product_GF_Predicate (TF)
            );
       end loop;
 
